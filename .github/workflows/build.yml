@@ -1,0 +1,31 @@
+name: build
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Unzip project files
+        run: |
+          if [ -f DynamicTotem.zip ]; then
+            unzip -o DynamicTotem.zip
+            chmod +x gradlew
+          fi
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: 21
+
+      - name: Build mod
+        run: ./gradlew build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mod-Jar
+          path: build/libs/
