@@ -11,13 +11,13 @@ jobs:
 
       - name: Unzip Project Files
         run: |
-          unzip -o DynamicTotem.zip -d temp_unzip
-          cp -r temp_unzip/*/* . 2>/dev/null || cp -r temp_unzip/* . 2>/dev/null || true
+          unzip -o DynamicTotem.zip -d .
+          if [ -d "DynamicTotem" ]; then cp -r DynamicTotem/* . ; fi
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Setup Gradle
@@ -27,7 +27,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build --stacktrace
 
       - name: Upload Mod Artifact
         uses: actions/upload-artifact@v4
