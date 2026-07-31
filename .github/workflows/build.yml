@@ -10,7 +10,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Unzip Project Files
-        run: unzip -o DynamicTotem.zip -d .
+        run: |
+          unzip -o DynamicTotem.zip -d temp_unzip
+          cp -r temp_unzip/*/* . 2>/dev/null || cp -r temp_unzip/* . 2>/dev/null || true
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
