@@ -22,7 +22,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: gradlew build --stacktrace
+        run: gradle build --stacktrace
 
       - name: Upload Mod Artifact
         uses: actions/upload-artifact@v4
